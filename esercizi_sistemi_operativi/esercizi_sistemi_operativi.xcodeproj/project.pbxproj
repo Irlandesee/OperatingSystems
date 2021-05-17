@@ -8,6 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		48FB47682652F68200D5BE9B /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47672652F68200D5BE9B /* main.c */; };
+		48FB47862652F76C00D5BE9B /* esempioThread2bis.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47702652F76C00D5BE9B /* esempioThread2bis.c */; };
+		48FB47872652F76C00D5BE9B /* esempioThread2ter.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47712652F76C00D5BE9B /* esempioThread2ter.c */; };
+		48FB47882652F76C00D5BE9B /* ex_Thread_share_x_race.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47722652F76C00D5BE9B /* ex_Thread_share_x_race.c */; };
+		48FB47892652F76C00D5BE9B /* ex_Thread_share_x_2.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47732652F76C00D5BE9B /* ex_Thread_share_x_2.c */; };
+		48FB478A2652F76C00D5BE9B /* ex_Thread_share_x_3.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47742652F76C00D5BE9B /* ex_Thread_share_x_3.c */; };
+		48FB478B2652F76C00D5BE9B /* esempioThread1.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47752652F76C00D5BE9B /* esempioThread1.c */; };
+		48FB478C2652F76C00D5BE9B /* esempiofork_4.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47762652F76C00D5BE9B /* esempiofork_4.c */; };
+		48FB478D2652F76C00D5BE9B /* ex_Thread_share_x.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47772652F76C00D5BE9B /* ex_Thread_share_x.c */; };
+		48FB478E2652F76C00D5BE9B /* ex_thread_share_x_race_more_dangerous.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47782652F76C00D5BE9B /* ex_thread_share_x_race_more_dangerous.c */; };
+		48FB478F2652F76C00D5BE9B /* esempiofork_2.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47792652F76C00D5BE9B /* esempiofork_2.c */; };
+		48FB47902652F76C00D5BE9B /* esempioThread1bis.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB477A2652F76C00D5BE9B /* esempioThread1bis.c */; };
+		48FB47912652F76C00D5BE9B /* esempiofork_1.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB477B2652F76C00D5BE9B /* esempiofork_1.c */; };
+		48FB47922652F76C00D5BE9B /* esempioThread3.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB477C2652F76C00D5BE9B /* esempioThread3.c */; };
+		48FB47932652F76C00D5BE9B /* esempiofork_7.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB477D2652F76C00D5BE9B /* esempiofork_7.c */; };
+		48FB47942652F76C00D5BE9B /* esempiofork_6.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB477E2652F76C00D5BE9B /* esempiofork_6.c */; };
+		48FB47952652F76C00D5BE9B /* esempiokill.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB477F2652F76C00D5BE9B /* esempiokill.c */; };
+		48FB47962652F76C00D5BE9B /* esempioThread2.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47802652F76C00D5BE9B /* esempioThread2.c */; };
+		48FB47972652F76C00D5BE9B /* esempiofork_5.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47812652F76C00D5BE9B /* esempiofork_5.c */; };
+		48FB47982652F76C00D5BE9B /* provafile.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47822652F76C00D5BE9B /* provafile.c */; };
+		48FB47992652F76C00D5BE9B /* esempio_exec_wait.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47832652F76C00D5BE9B /* esempio_exec_wait.c */; };
+		48FB479A2652F76C00D5BE9B /* esempio_exit_errore.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47842652F76C00D5BE9B /* esempio_exit_errore.c */; };
+		48FB479B2652F76C00D5BE9B /* esempiofork_3.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FB47852652F76C00D5BE9B /* esempiofork_3.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +47,28 @@
 /* Begin PBXFileReference section */
 		48FB47642652F68200D5BE9B /* esercizi_sistemi_operativi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = esercizi_sistemi_operativi; sourceTree = BUILT_PRODUCTS_DIR; };
 		48FB47672652F68200D5BE9B /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		48FB47702652F76C00D5BE9B /* esempioThread2bis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempioThread2bis.c; sourceTree = "<group>"; };
+		48FB47712652F76C00D5BE9B /* esempioThread2ter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempioThread2ter.c; sourceTree = "<group>"; };
+		48FB47722652F76C00D5BE9B /* ex_Thread_share_x_race.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ex_Thread_share_x_race.c; sourceTree = "<group>"; };
+		48FB47732652F76C00D5BE9B /* ex_Thread_share_x_2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ex_Thread_share_x_2.c; sourceTree = "<group>"; };
+		48FB47742652F76C00D5BE9B /* ex_Thread_share_x_3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ex_Thread_share_x_3.c; sourceTree = "<group>"; };
+		48FB47752652F76C00D5BE9B /* esempioThread1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempioThread1.c; sourceTree = "<group>"; };
+		48FB47762652F76C00D5BE9B /* esempiofork_4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_4.c; sourceTree = "<group>"; };
+		48FB47772652F76C00D5BE9B /* ex_Thread_share_x.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ex_Thread_share_x.c; sourceTree = "<group>"; };
+		48FB47782652F76C00D5BE9B /* ex_thread_share_x_race_more_dangerous.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ex_thread_share_x_race_more_dangerous.c; sourceTree = "<group>"; };
+		48FB47792652F76C00D5BE9B /* esempiofork_2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_2.c; sourceTree = "<group>"; };
+		48FB477A2652F76C00D5BE9B /* esempioThread1bis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempioThread1bis.c; sourceTree = "<group>"; };
+		48FB477B2652F76C00D5BE9B /* esempiofork_1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_1.c; sourceTree = "<group>"; };
+		48FB477C2652F76C00D5BE9B /* esempioThread3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempioThread3.c; sourceTree = "<group>"; };
+		48FB477D2652F76C00D5BE9B /* esempiofork_7.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_7.c; sourceTree = "<group>"; };
+		48FB477E2652F76C00D5BE9B /* esempiofork_6.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_6.c; sourceTree = "<group>"; };
+		48FB477F2652F76C00D5BE9B /* esempiokill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiokill.c; sourceTree = "<group>"; };
+		48FB47802652F76C00D5BE9B /* esempioThread2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempioThread2.c; sourceTree = "<group>"; };
+		48FB47812652F76C00D5BE9B /* esempiofork_5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_5.c; sourceTree = "<group>"; };
+		48FB47822652F76C00D5BE9B /* provafile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = provafile.c; sourceTree = "<group>"; };
+		48FB47832652F76C00D5BE9B /* esempio_exec_wait.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempio_exec_wait.c; sourceTree = "<group>"; };
+		48FB47842652F76C00D5BE9B /* esempio_exit_errore.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempio_exit_errore.c; sourceTree = "<group>"; };
+		48FB47852652F76C00D5BE9B /* esempiofork_3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = esempiofork_3.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +101,39 @@
 		48FB47662652F68200D5BE9B /* esercizi_sistemi_operativi */ = {
 			isa = PBXGroup;
 			children = (
+				48FB476F2652F6C700D5BE9B /* esempi */,
 				48FB47672652F68200D5BE9B /* main.c */,
 			);
 			path = esercizi_sistemi_operativi;
+			sourceTree = "<group>";
+		};
+		48FB476F2652F6C700D5BE9B /* esempi */ = {
+			isa = PBXGroup;
+			children = (
+				48FB47832652F76C00D5BE9B /* esempio_exec_wait.c */,
+				48FB47842652F76C00D5BE9B /* esempio_exit_errore.c */,
+				48FB477B2652F76C00D5BE9B /* esempiofork_1.c */,
+				48FB47792652F76C00D5BE9B /* esempiofork_2.c */,
+				48FB47852652F76C00D5BE9B /* esempiofork_3.c */,
+				48FB47762652F76C00D5BE9B /* esempiofork_4.c */,
+				48FB47812652F76C00D5BE9B /* esempiofork_5.c */,
+				48FB477E2652F76C00D5BE9B /* esempiofork_6.c */,
+				48FB477D2652F76C00D5BE9B /* esempiofork_7.c */,
+				48FB477F2652F76C00D5BE9B /* esempiokill.c */,
+				48FB47752652F76C00D5BE9B /* esempioThread1.c */,
+				48FB477A2652F76C00D5BE9B /* esempioThread1bis.c */,
+				48FB47802652F76C00D5BE9B /* esempioThread2.c */,
+				48FB47702652F76C00D5BE9B /* esempioThread2bis.c */,
+				48FB47712652F76C00D5BE9B /* esempioThread2ter.c */,
+				48FB477C2652F76C00D5BE9B /* esempioThread3.c */,
+				48FB47732652F76C00D5BE9B /* ex_Thread_share_x_2.c */,
+				48FB47742652F76C00D5BE9B /* ex_Thread_share_x_3.c */,
+				48FB47782652F76C00D5BE9B /* ex_thread_share_x_race_more_dangerous.c */,
+				48FB47722652F76C00D5BE9B /* ex_Thread_share_x_race.c */,
+				48FB47772652F76C00D5BE9B /* ex_Thread_share_x.c */,
+				48FB47822652F76C00D5BE9B /* provafile.c */,
+			);
+			path = esempi;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +192,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48FB47892652F76C00D5BE9B /* ex_Thread_share_x_2.c in Sources */,
+				48FB47972652F76C00D5BE9B /* esempiofork_5.c in Sources */,
+				48FB47912652F76C00D5BE9B /* esempiofork_1.c in Sources */,
+				48FB47902652F76C00D5BE9B /* esempioThread1bis.c in Sources */,
+				48FB47952652F76C00D5BE9B /* esempiokill.c in Sources */,
+				48FB478A2652F76C00D5BE9B /* ex_Thread_share_x_3.c in Sources */,
+				48FB47992652F76C00D5BE9B /* esempio_exec_wait.c in Sources */,
+				48FB478B2652F76C00D5BE9B /* esempioThread1.c in Sources */,
+				48FB47882652F76C00D5BE9B /* ex_Thread_share_x_race.c in Sources */,
+				48FB478E2652F76C00D5BE9B /* ex_thread_share_x_race_more_dangerous.c in Sources */,
+				48FB478D2652F76C00D5BE9B /* ex_Thread_share_x.c in Sources */,
+				48FB479B2652F76C00D5BE9B /* esempiofork_3.c in Sources */,
+				48FB478F2652F76C00D5BE9B /* esempiofork_2.c in Sources */,
+				48FB47942652F76C00D5BE9B /* esempiofork_6.c in Sources */,
+				48FB47862652F76C00D5BE9B /* esempioThread2bis.c in Sources */,
+				48FB47872652F76C00D5BE9B /* esempioThread2ter.c in Sources */,
+				48FB47962652F76C00D5BE9B /* esempioThread2.c in Sources */,
 				48FB47682652F68200D5BE9B /* main.c in Sources */,
+				48FB47982652F76C00D5BE9B /* provafile.c in Sources */,
+				48FB47932652F76C00D5BE9B /* esempiofork_7.c in Sources */,
+				48FB47922652F76C00D5BE9B /* esempioThread3.c in Sources */,
+				48FB478C2652F76C00D5BE9B /* esempiofork_4.c in Sources */,
+				48FB479A2652F76C00D5BE9B /* esempio_exit_errore.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
