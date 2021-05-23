@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-main(  ){
+int main(  ){
     int p = getpid( ); 
     printf("sono %d, ora mi  clono\n",p);
    

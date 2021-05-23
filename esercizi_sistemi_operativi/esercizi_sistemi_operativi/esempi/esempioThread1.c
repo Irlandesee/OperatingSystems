@@ -14,7 +14,14 @@ int main(  ){
    long t;
    for(t=0; t<5; t++){  /* creo 5 thread, ognuno esegue PrintHello*/
       printf("Creo la thread numero %ld\n", t);
-      pthread_create(&th[t], NULL, PrintHello, (void *)t);
+      /**
+      * &th[t] -> Memory address ove memorizzare il thread creato
+      *NULL -> Attributi: null forza l'uso degli attributi di default
+      *PrintHello -> Funzione tipo *void -> *void che deve essere eseguita dal thread creato
+      *(void *)t -> parametro void da passare alla funzione.
+      **/
+      pthread_create(&th[t], NULL, PrintHello, (void *)t); 
+   
    }
    pthread_exit(NULL); 
 }
