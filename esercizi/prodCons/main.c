@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <semaphore.h>
+#include <pthread.h>
 
 #define BUFFER_SIZE 100
 #define MAX_RAND 100 //maximum random number generated
@@ -29,17 +30,25 @@ sem_t *empty_multiple; //semaphore initialited at 17
 static const char *mutexEven = "mutexEven";
 static const char *mutexOdd = "mutexOdd";
 static const char *mutexMultiple = "mutexMultiple";
-static const char *muntexRandomNumber = "mutexRandomNumber";
+static const char *mutexRandomNumber = "mutexRandomNumber";
 //declaring semaphores names
 static const char *emptyEven = "emptyEven";
 static const char *emptyOdd= "emptyOdd";
 static const char *emptyMultiple = "emptyMultiple";
 
-int nextInt(){
+/**
+ * Thread Safe (?)
+ * */
+void nextInt(){
+	sem_wait(mutexRandomNumber);
 	srand(time(NULL));
-	int x = rand() % MAX_RAND;
-	printf("\nRandom number generated: %d\n", x);
-	return x;
+	int i = 0;
+	while(i < BUFFER_SIZE){
+		randomNumberGenerated = rand() % MAX_RAND;
+		printf("Generated random number: %d\n", randomNumberGenerated);		
+		i++;
+	}
+	sem_post(mutexRandomNumber);
 }
 
 bool isEven(int n){
@@ -59,7 +68,49 @@ bool isMultiple(int n){
  * Returns an error on sterr if it fails.
 **/
 void createSemaphores(){
+	//creating mutexs
+	mutex_even = sem_open(mutexEven, O_CREAT, 0777, 1);
+	if(mutex_even == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating mutex: %s\n", mutexEven);
+		exit(EXIT_FAILURE);
+	}
 
+	mutex_odd = sem_open(mutexOdd, O_CREAT, 0777, 1);
+	if(mutex_odd == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating mutex: %s\n", mutexOdd);
+		exit(EXIT_FAILURE);
+	}
+
+	mutex_multiple = sem_open(mutexMultiple, O_CREAT, 0777, 1);
+	if(mutex_multiple == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating mutex: %s\n", mutexMultiple);
+		exit(EXIT_FAILURE);
+	}
+
+	mutex_randomNumber = sem_open(mutexRandomNumber, O_CREAT, 0777, 1);
+	if(mutex_randomNumber == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating mutex: %s\n", mutexRandomNumber);
+		exit(EXIT_FAILURE);
+	}
+
+	//creating semaphores
+	empty_even = sem_open(emptyEven, O_CREAT, 0777, EMPTY_EVEN);
+	if(empty_even == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating semaphore: %s\n", emptyEven);
+		exit(EXIT_FAILURE);
+	}
+
+	empty_odd = sem_open(emptyOdd, O_CREAT, 0777, EMPTY_ODD);
+	if(empty_odd == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating semaphore: %s\n", emptyOdd);
+		exit(EXIT_FAILURE);
+	}
+
+	empty_multiple = sem_open(emptyMultiple, O_CREAT, 0777, EMPTY_MULTIPLE);
+	if(empty_multiple == SEM_FAILED){
+		fprintf(stderr, "%s\n", "ERROR creating semaphore: %s\n", emptyMultiple);
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**
@@ -67,22 +118,29 @@ void createSemaphores(){
  * Should always be called before the process terminates.
 **/
 void unlinkSemaphores(){
-
+	sem_unlink(mutexEven);
+	sem_unlink(mutexOdd);
+	sem_unlink(mutexMultiple);
+	sem_unlink(mutexRandomNumber);
+	sem_unlink(emptyEven);
+	sem_unlink(emptyOdd);
+	sem_unlink(emptyMultiple);
 }
 /**
  * 
  * */
+/**
 void producer(){
 	int item;
 	int i = 0; //used for accessing even numbers;
 	int j = 0; //used for accessing odd numbers;
 	int k = 0; //used for accessing odd numbers that are divisible by 3
 	
-}
-
+}**/
+/**
 void consumer(){
 
-}
+}**/
 
 void printBuffer(){
 	printf("\n--------- Printing Buffer\n");
@@ -92,6 +150,15 @@ void printBuffer(){
 }
 
 int main(int argc, char* argv[]){
-	
+	unlinkSemaphores();
+	createSemaphores();
+
+	pthread_t randomNumberGeneratorThread;
+
+	pthread_create(&randomNumberGeneratorThread, NULL, nextInt, NULL);
+
+	pthread_join(randomNumberGeneratorThread, NULL);
+
+	unlinkSemaphores();
 	return 0;
 }
