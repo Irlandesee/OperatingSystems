@@ -7,14 +7,15 @@
 #include <semaphore.h>
 #include <pthread.h>
 
-#define BUFFER_SIZE 100
-#define MAX_RAND 100 //maximum random number generated
+#define BUFFER_SIZE 100 //the buffer size
+#define MAX_RAND 1000 //maximum random number that can be generated (0-99)
 #define EMPTY_EVEN 50 //number of even spots free at the start
 #define EMPTY_MULTIPLE 17 //number of odd spots that are divisible by 3 free at the start
 #define EMPTY_ODD 33//number of odd spots free at the start
 
 int buffer[BUFFER_SIZE];
 int randomNumberGenerated; //random number generated 
+srand(time(NULL)); 
 
 //declaring mutexs
 sem_t *mutex_even; //mutex for accessing even spots
@@ -41,13 +42,8 @@ static const char *emptyMultiple = "emptyMultiple";
  * */
 void nextInt(){
 	sem_wait(mutexRandomNumber);
-	srand(time(NULL));
-	int i = 0;
-	while(i < BUFFER_SIZE){
-		randomNumberGenerated = rand() % MAX_RAND;
-		printf("Generated random number: %d\n", randomNumberGenerated);		
-		i++;
-	}
+	randomNumberGenerated = rand() % MAX_RAND;
+	printf("Generated random number: %d\n", randomNumberGenerated);		
 	sem_post(mutexRandomNumber);
 }
 
@@ -115,7 +111,8 @@ void createSemaphores(){
 
 /**
  * Unlinks the semaphores.
- * Should always be called before the process terminates.
+ * Should always be called before the process terminates, otherwise
+ * there is the risk of them persisting in the systems
 **/
 void unlinkSemaphores(){
 	sem_unlink(mutexEven);
@@ -127,20 +124,98 @@ void unlinkSemaphores(){
 	sem_unlink(emptyMultiple);
 }
 /**
- * 
+ * Produces an item. If it is even, it will access an even position in the array and insert it, 
+ * otherwise if it is odd but divisibile by 3 it accesses an odd position divible by 3 and inserts it there.
+ * Finally if the item is odd it accesses an odd position and inserts it.
  * */
-/**
 void producer(){
 	int item;
 	int i = 0; //used for accessing even numbers;
 	int j = 0; //used for accessing odd numbers;
 	int k = 0; //used for accessing odd numbers that are divisible by 3
-	
-}**/
-/**
-void consumer(){
+	printf("\nConsumer is starting...\n");
+	while(true){
+		nextInt();
+		item = randomNumberGenerated; //generates a randomNumber
+		if(isEven(item)){ //checking if item is even
+			sem_wait(emptyEven);
+			sem_wait(mutexEven);
+			printf("Produced even item :%d, inserting at: %d\n", item, i);
+			buffer[i] = item;
+			printf("");
+			i += 2;
+			sem_post(mutex_even);
+		}
+		else{
+			if(isMultiple(item)){ //checking if item is divisible by 3
+				sem_wait(emptyMultiple);
+				sem_wait(mutexMultiple);
+				printf("Produced odd item divisible by 3: %d, inserting at: %d\n", item, k);
+				buffer[k] = item;
+				k += 3;
+				sem_post(mutexMultiple);
+			}
+			else{
+				sem_wait(emptyOdd);
+				sem_wait(mutexOdd);
+				printf("Produced odd item: %d, inserting at: %d\n", item, j);
+				buffer[j] = item;
+				j += 2;
+				sem_post(mutexOdd);
+			}
+			//resetting indeces
+			if(i == 100)
+				i = 0;
+			if(j == 100)
+				j = 0;
+			if(k == 99)
+				k = 0;
+		}
+	}
+}
 
-}**/
+void consumer(){
+	int item;
+	int i = 0; //used for accessing even numbers;
+	int j = 0; //used for accessing odd numbers;
+	int k = 0; //used for accessing odd numbers that are divisible by 3
+	printf("\nConsumer is starting...\n");
+	while(true){
+		sem_wait(mutexEven);
+		item = buffer[i];
+		if(isEven(item)){
+			printf("Consuming even item %d\n", item);
+			i+=2;
+			sem_post(emptyEven);
+			sem_post(mutexEven);
+		}
+		else{
+			sem_wait(mutexMultiple);
+			item = buffer[k];
+			if(isMultiple(item)){
+				printf("Consuming odd item divisible by 3: %d\n", item);
+				k += 3;
+				sem_post(emptyMultiple);
+				sem_post(mutexMultiple);
+			}
+			else{
+				sem_wait(mutexOdd);
+				item = buffer[j];
+				printf("Consuming odd item: %d\n", item);
+				j += 2;
+				sem_post(emptyOdd);
+				sem_post(mutexOdd);
+			}
+		}
+		//resetting indeces
+			if(i == 100)
+				i = 0;
+			if(j == 100)
+				j = 0;
+			if(k == 99)
+				k = 0;
+	}
+}
 
 void printBuffer(){
 	printf("\n--------- Printing Buffer\n");
@@ -152,12 +227,21 @@ void printBuffer(){
 int main(int argc, char* argv[]){
 	unlinkSemaphores();
 	createSemaphores();
-
+	/*
 	pthread_t randomNumberGeneratorThread;
 
 	pthread_create(&randomNumberGeneratorThread, NULL, nextInt, NULL);
 
 	pthread_join(randomNumberGeneratorThread, NULL);
+	*/
+
+	pthread_t prod;
+	pthread_t cons;
+	pthread_create(&prod, NULL, producer, NULL);
+	pthread_create(&cons, NULL, consumer, NULL);
+
+	pthread_join(prod, NULL);
+	pthread_join(cons, NULL);
 
 	unlinkSemaphores();
 	return 0;
