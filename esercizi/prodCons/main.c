@@ -38,7 +38,8 @@ static const char *emptyOdd= "emptyOdd";
 static const char *emptyMultiple = "emptyMultiple";
 
 /**
- * Thread Safe (?)
+ * Thread Safe 
+ * 
  * */
 void nextInt(){
 	sem_wait(mutexRandomNumber);
@@ -217,6 +218,9 @@ void consumer(){
 	}
 }
 
+/**
+ * NOT THREAD SAFE
+ * */
 void printBuffer(){
 	printf("\n--------- Printing Buffer\n");
 	for(int i = 0; i < BUFFER_SIZE; i++)
