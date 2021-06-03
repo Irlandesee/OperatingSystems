@@ -14,6 +14,9 @@
 
 //variabili condivise
 int buffer[NUMERO_COPIE];
+int books_P1[NUM_MAX_LIBRI_PRENOTABILI_P1];
+int books_P2[NUM_MAX_LIBRI_PRENOTABILI_P2];
+int books_P3[NUM_MAX_LIBRI_PRENOTABILI_P3];
 int libriDisponibili = NUMERO_COPIE;
 int numProcessiInWaiting_P1 = 0;
 int numProcessiInWaiting_P2 = 0;
@@ -177,6 +180,28 @@ void prenota_P3(){
  * altrimenti li cede a un altro processo tipo p1, segnala altro p1
  * */
 void restituisci_P1(){
+	sem_wait(mutex);
+	if(libriDisponibili == NUMERO_COPIE)
+		empty = true;
+	else{
+		//controllo se ci sono processi diversi da p1 che sono in attesa
+		if(numProcessiInWaiting_P2 >= NUM_MIN_PROCESSI_IN_WAITING
+		 || numProcessiInWaiting_P3 >= NUM_MIN_PROCESSI_IN_WAITING){
+			//rimetto libri nel buffer
+			int index = books_P1[0];
+			buffer[index] = LIBRO_DISPONIBILE;
+			libriDisponibili++;
+			sem_post(mutex);
+			sem_post(semP2);
+			sem_post(semP3);
+		}
+		else{
+			int index = books_P1[0];
+			buffer[index] = LIBRO_DISPONIBILE;
+			libriDisponibili++;
+			sem_post(semP1);
+		}
+	}
 
 }
 
@@ -188,8 +213,35 @@ void restituisci_P1(){
  * altrimenti li cedono ad un altro processo tipo p2, segnala altro p2
  * */
 void restituisci_P2(){
-
+	sem_wait(mutex);
+	if(libriDisponibili == NUMERO_COPIE)
+		empty = true;
+	else{
+		//controllo se ci sono processi diversi da p2 in attesa
+		if(numProcessiInWaiting_P1 >= NUM_MIN_PROCESSI_IN_WAITING
+			|| numProcessiInWaiting_P3 >= NUM_MIN_PROCESSI_IN_WAITING){
+			//rimetto libri nel buffer
+			for(int i = 0; i <= books_P2[i]; i++){
+				if(i == books_P2[i])
+					buffer[i] = LIBRO_DISPONIBILE;
+			}
+			libriDisponibili+=2;
+			sem_post(mutex);
+			sem_post(semP1);
+			sem_post(semP3);
+		}
+		else{
+			for(int i = 0; i <= books_P2[i]; i++){
+				if(i == books_P2[i])
+					buffer[i] = LIBRO_DISPONIBILE;
+			}
+			libriDisponibili+=2;
+			sem_post(mutex);
+			sem_post(sem_P2);
+		}
+	}
 }
+
 /**
  * restituzione eseguita da processi tipo p3
  * restituiscono 3 copie
@@ -198,7 +250,33 @@ void restituisci_P2(){
  * altrimenti li cedono ad un altro processo tipo p3, segnala altro p3
  * */
 void restituisci_P3(){
-
+	sem_wait(mutex);
+	if(libriDisponibili == NUMERO_COPIE)
+		empty = true;
+	else{
+		//controllo se ci sono processi diversi da p3 in attesa
+		if(numProcessiInWaiting_P1 >= NUM_MIN_PROCESSI_IN_WAITING
+			|| numProcessiInWaiting_P2 >= NUM_MIN_PROCESSI_IN_WAITING){
+			//rimetto libri nel buffer
+			for(int i = 0; i <= books_P3[i]; i++){
+				if(i == books_P3[i])
+					buffer[i] = LIBRO_DISPONIBILE;
+			}
+			libriDisponibili+=3;
+			sem_post(mutex);
+			sem_post(semP1);
+			sem_post(semP2);
+		}
+		else{
+			for(int i = 0; i <= books_P3[i]; i++){
+				if(i == books_P3[i])
+					buffer[i] = LIBRO_DISPONIBILE;
+			}
+			libriDisponibili+=3;
+			sem_post(mutex);
+			sem_post(sem_P3);
+		}
+	}
 }
 
 /**
@@ -232,6 +310,6 @@ int main(int argc, char *argv[]){
 	destroySemaphores();
 	prepareBuffer()
 
-
+	destroySemaphores();
 	return 0;
 }
