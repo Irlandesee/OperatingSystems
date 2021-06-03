@@ -29,8 +29,8 @@ static const char *semB = "semB";
 void createSemaphores(){
 	printf("Creating semaphores\n...");
 	mutex = sem_open(mutex, O_CREAT, 0777, 1);
-	semA = sem_open(semA, O_CREAT, 0777, 0);
-	semB = sem_open(semB, O_CREAT, 0777, 0);
+	sem_A = sem_open(semA, O_CREAT, 0777, 0);
+	sem_B = sem_open(semB, O_CREAT, 0777, 0);
 	printf("---- Done\n");
 }
 
