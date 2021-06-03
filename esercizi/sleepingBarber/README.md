@@ -33,28 +33,3 @@ altrimenti
 		prendi posto
 		attendi chiamata barbiere
 		esci dal negozio
-
-
-
-*
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+

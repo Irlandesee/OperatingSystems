@@ -63,7 +63,9 @@ void barber(){
 }
 
 /**
- * 
+ * entrando nel negozio, se non ci sono sedie libere cerca un altro barbiere
+ * se c'è almeno una sedia libera ne occupa una, svegliando il barbiere se sta dormendo
+ * e attende di essere chiamato
  * */
 void client(){
 
