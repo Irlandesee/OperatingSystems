@@ -11,6 +11,8 @@
 //variabili condivise
 int buffer[BUFFER_SIZE];
 int numClientiWaiting = 0;
+int numSedieDisponibili = BUFFER_SIZE;
+bool barber_is_sleeping;
 
 //semafori
 sem_t *mutex; //semaforo per accesso a memoria condivisa
@@ -52,14 +54,47 @@ void prepareBuffer(){
 	printf("---- Done\n");
 }
 
+void tagliaCapelli(void *threadid, int cliente){
+	long tid = (long) threadid;){
+	printf("il thread %u si sta tagliando i capelli", tid);
+	printf("ora libera il bosto");
+}
+
 /**
- * Apre il negozio e si mette a dormire, attendendo un cliente che lo svegli
+ * Apre il negozio e si mette a dormire, attendendo un cliente che lo svegli. 
  * quando ci sono clienti in attesa, il barbiere li chiama e li serve
  * uno alla volta
  * quando non ci sono clienti in attesa, il barbiere si rimette a dormire
  * */
 void barber(){
+	//apro il negozio
+	sem_wait(mtx);
+	barber_is_sleeping = true;
+	sem_post(mtx);
+	sem_post(barberFree);
 
+	while(true){
+		sem_wait(mtx);
+		if(numClientiWaiting == 0){
+			barber_is_sleeping = true;
+			sem_post(barberFree);
+			sem_post(mtx);
+		}
+		else{
+			while(numClientiWaiting > 0){
+				sem_wait(barberFree);
+				sem_wait(clients_in_shop);
+				barber_is_sleeping = false;
+				numClientiWaiting--;
+				int cliente = pop(buffer); //pop non implementata
+				tagliaCapelli(pthread_self(), cliente);
+				numSedieDisponibili++;
+				sem_post(mtx);
+				sem_post(clientsInShop);
+				sem_post(barberFree);
+			}
+		}
+	}
 }
 
 /**
@@ -68,7 +103,21 @@ void barber(){
  * e attende di essere chiamato
  * */
 void client(){
-
+	while(true){
+		sem_wait(clientsInShop);
+		sem_wait(mtx);
+		if(barber_is_sleeping = true){
+			barber_is_sleeping = false;
+			insert(buffer); //insert non implementata
+			sem_post(barberFree);
+			sem_post(mtx);
+		}
+		else{
+			sem_wait(barberFree);
+			insert(buffer);
+			sem_post(mutex);
+		}
+	}
 }
 
 int main(int argc, char *argv[]){
