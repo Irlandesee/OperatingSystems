@@ -1,3 +1,3 @@
-# OperatingSystems
-Repo per il corso di Sistemi Opertivi @Università degli Studi dell'Insubria.
+# Sistemi Operativi
+Repository per il corso di Sistemi Operativi @Università degli Studi dell'Insubria.
 Mattia Mauro Lunardi.
