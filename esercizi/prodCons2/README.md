@@ -1,15 +1,11 @@
 #problem description
-Si consideri il classico problema dei produttori e consumatori, con
-il buffer implementato con un array di interi di dimensione 100.
-Si assuma, per semplicita’, che gli interi prodotti e consumati
-siano >=0. Si considerino le seguenti condizioni aggiuntive:
-1.Gli interi pari possono occupare solo le posizioni da 0 a 49;
-2.Gli interi dispari possono occupare solo le posizioni da 50 a 99;
-3.Vi e’ una nuova categoria di processi, i processi ConsPari, che
-consumano tutti gli interi pari, se l’array contiene almeno 20
-interi pari;
-Quanto un processo tenta di effettuare un’operazione al momento non
-consentita (per esempio produrre un intero che il buffer non può al
-momento ospitare), il processo deve essere messo in attesa.
-Programmare il sistema sfruttando i semafori con la semantica
-tradizionale.
+Si consideri il classico problema dei produttori e consumatori, con il buffer implementato con un array di interi di dimensione 100
+Si assuma, per semplicità che gli interi prodotti e consuamti siano tutti strettamente positivi oppure uguali a 0, vale a dire >= 0
+
+- Condizioni aggiuntive:
+1. Gli interi pari possono occupare solo le posizioni di indice pari
+2. Gli interi dispari divisibili per 3 possono occupare solo le posizioni di indice dispari divisibile per 3
+3. Gli interi dispari che non sono divisibili per 3 possono occupare solo le posizioni di indice dispari non divisibili per 3
+
+Quando un processo tenta di effettuare un'operazione al momento non consentita (tradurre un intero che il buffer non può ospitare), il processo deve essere sospeso.
+
