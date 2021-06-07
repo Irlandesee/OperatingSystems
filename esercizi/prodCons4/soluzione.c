@@ -5,57 +5,62 @@
 #include <pthread.h>
 
 #define BUFFER_SIZE 100
-
 //variabili condivise
 int buffer[BUFFER_SIZE];
-int posLibere = BUFFER_SIZE;
-int posOccupate = 0;
-int consCount = 0;
+int freeSpots = BUFFER_SIZE;
+int availableItems = 0;
+int prod_waiting = 0;
+int cons_waiting = 0;
+int specCons_waiting = 0;
+int priority = 0; //priorita dei consSpec sui cons
 
 //semafori
 sem_t mutex;
-sem_t prod;
-sem_t cons;
-sem_t specialCons;
+sem_t producer;
+sem_t consumer;
+sem_t specialConsumer;
 
 //nomi semafori
-static const char *mtx = "mutex";
-static const char *producer = "producer";
-static const char *consumer = "consumer";
-static const char *specialConsumer = "specialConsumer";
+static const char* mtx = "mutex";
+static const char* prod = "producer";
+static const char* cons = "consumer";
+static const char* specCons = "specialConsumer";
 
 void createSemaphores(){
 	mutex = sem_open(mtx, O_CREAT, 0777, 1);
-	prod = sem_open(producer, O_CREAT, 0777, 0);
-	cons = sem_open(consumer, O_CREAT, 0777, 0);
-	specialCons = sem_open(specialConsumer, O_CREAT, 0777, 0);
+	producer = sem_open(prod, O_CREAT, 0777, 0);
+	consumer = sem_open(cons, O_CREAT, 0777, 0);
+	specialConsumer = sem_open(specCons, O_CREAT, 0777, 0);
 }
 
 void destroySemaphores(){
 	sem_unlink(mtx);
-	sem_unlink(producer);
-	sem_unlink(consumer);
-	sem_unlink(specialConsumer);
+	sem_unlink(prod);
+	sem_unlink(cons);
+	sem_unlik(specCons);
 }
 
 void producer(){
-	int item;
+	int item = produce_item() //non implementata
 	int i = 0;
 	while(true){
 		sem_wait(mtx);
-		if(posLibere == 0)
+		if(freeSpots < 0){
+			prod_waiting++;
+			sem_wait(prod);
 			sem_post(mtx);
-		else{
-			sem_wait(producer);
-			buffer[i] = item;
-			posLibere--;
-			posOccupate++;
-			i++;
-			if(i == 100)
-				i = 0;
-			sem_post(mtx);
-			sem_post(producer);
 		}
+		else{
+			item = buffer[i];
+			remove_item(i); //non implementata
+			freeSpots--;
+			availableItems++;
+			sem_post(mtx);
+			sem_post(cons);
+			sem_post(specCons);
+		}
+		if(i == 100)
+			i = 0;
 	}
 }
 
@@ -64,19 +69,30 @@ void consumer(){
 	int i = 0;
 	while(true){
 		sem_wait(mtx);
-		if(posOccupate == 0)
+		if(availableItems < 0){
+			cons_waiting++;
+			sem_wait(cons);
 			sem_post(mtx);
-		else{
-			sem_wait(consumer);
-			item = buffer[i];
-			posLibere++;
-			posOccupate--;
-			printf("%d\n", item);
-			if(i == 100)
-				i = 0;
-			sem_post(mtx);
-			sem_post(consumer);
 		}
+		else{
+			if(priority <= 5){		
+				cons_waiting--;
+				availableItems--;
+				freeSpots++;
+				item = buffer[i];
+				remove_item(i); 
+				i++;
+				sem_post(mtx);
+				sem_post(prod);
+			}
+			else{
+				cons_waiting++;
+				sem_wait(cons);
+				sem_post(prod);
+			}
+		}
+		if(i == 100)
+			i = 0;
 	}
 }
 
@@ -85,32 +101,30 @@ void specialConsumer(){
 	int i = 0;
 	while(true){
 		sem_wait(mtx);
-		if(posOccupate < 2)
+		if(availabeItems < 0){
+			specCons_waiting++;
+			priority++;
+			sem_wait(specCons);
 			sem_post(mtx);
-		else{
-			sem_wait(specialConsumer);
-			while(consCount < 5){
-				consCount++;
-				sem_post(mtx);
-				sem_post(consumer);
-			}
-			int itemsConsumed = 0;
-			while(itemsConsumed < 2){
-				itemsConsumed++;
-				item = buffer[i];
-				printf("%d\n", item);
-				i++;
-				if(i == 100)
-					i = 0;
-			}
-			posLibere+=2;
-			posOccupate-=2;
-			sem_post(mtx);
-			sem_post(specialConsumer);
 		}
+		else{
+			int itemsConsumed = 0;
+			specCons_waiting--;
+			availableItems-=2;
+			freeSpots+=2;
+			while(itemsConsumed < 2){
+				item = buffer[i];
+				remove_item(i);
+				i++;
+				itemsConsumed++;
+				sem_post(prod);
+			}
+		}
+		if(i == 100)
+			i = 0;
 	}
 }
 
-int main(int argc, char *arv[]){
+int main(int argc, char* argv[]){
 
 }
